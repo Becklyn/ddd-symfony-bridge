@@ -12,11 +12,9 @@ use SimpleBus\SymfonyBridge\Bus\EventBus;
  */
 class SimpleBusEventBus implements EventBusInterface
 {
-    private EventBus $eventBus;
-
-    public function __construct(EventBus $eventBus)
-    {
-        $this->eventBus = $eventBus;
+    public function __construct(
+        private EventBus $eventBus,
+    ) {
     }
 
     public function dispatch(DomainEvent $event): void

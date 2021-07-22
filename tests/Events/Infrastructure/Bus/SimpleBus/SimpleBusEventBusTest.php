@@ -13,8 +13,7 @@ class SimpleBusEventBusTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ObjectProphecy|EventBus */
-    private ObjectProphecy $eventBus;
+    private ObjectProphecy|EventBus $eventBus;
 
     private SimpleBusEventBus $fixture;
 

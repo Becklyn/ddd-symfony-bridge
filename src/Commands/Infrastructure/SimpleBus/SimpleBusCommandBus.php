@@ -11,11 +11,9 @@ use SimpleBus\SymfonyBridge\Bus\CommandBus;
  */
 class SimpleBusCommandBus implements CommandBusInterface
 {
-    private CommandBus $commandBus;
-
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
+    public function __construct(
+        private CommandBus $commandBus,
+    ) {
     }
 
     public function dispatch($command): void

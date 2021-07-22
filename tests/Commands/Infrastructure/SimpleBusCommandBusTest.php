@@ -12,8 +12,7 @@ class SimpleBusCommandBusTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ObjectProphecy|CommandBus */
-    private ObjectProphecy $commandBus;
+    private ObjectProphecy|CommandBus $commandBus;
 
     private SimpleBusCommandBus $fixture;
 
@@ -23,7 +22,7 @@ class SimpleBusCommandBusTest extends TestCase
         $this->fixture = new SimpleBusCommandBus($this->commandBus->reveal());
     }
 
-    public function testDispatchCallsHandleOnBase()
+    public function testDispatchCallsHandleOnBase(): void
     {
         $command = $this->givenACommand();
         $this->whenACommandIsDispatchedThroughSimpleBusCommandBus($command);
