@@ -32,24 +32,33 @@ command_handlers:
 ### Enabling the Event Store
 - Run `php bin/console doctrine:migrations:migrate`. This executes the Doctrine migration provided by becklyn/ddd-doctrine-bridge to create database tables for the event store.
 - If you do not wish to use the event store, see the `use_event_store` configuration option below.
+- Add the following to `services.yaml` to enable persisting event data in the event store
+```
+# services.yaml
+    # required for serializing event data into the event store
+    symfony_property_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\PropertyNormalizer
+        public: false
+        tags: [ serializer.normalizer ]
+```
 - Add the following to `services.yaml` and `doctrine.yaml` if you wish for Doctrine ORM 2 to persist microseconds as part of domain event timestamps in the event store (this should no longer be necessary with Doctrine ORM 3):
 ```
 # services.yaml
-# required for microsecond serialization in event store for raisedTs
-datetime_normalizer:
-    class: Symfony\Component\Serializer\Normalizer\DateTimeNormalizer
-    public: false
-    tags: [serializer.normalizer]
-    arguments:
-        -
-            datetime_format: 'Y-m-d H:i:s.u'
+    # required for microsecond serialization in event store for raisedTs
+    datetime_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\DateTimeNormalizer
+        public: false
+        tags: [serializer.normalizer]
+        arguments:
+            -
+                datetime_format: 'Y-m-d H:i:s.u'
 
 # doctrine.yaml
-# required for writing event raisedTs microseconds into the DB
-doctrine:
-    dbal:
-        types:
-            datetime_immutable: Becklyn\Ddd\DateTime\Infrastructure\Doctrine\DateTimeImmutableMicrosecondsType
+    # required for writing event raisedTs microseconds into the DB
+    doctrine:
+        dbal:
+            types:
+                datetime_immutable: Becklyn\Ddd\DateTime\Infrastructure\Doctrine\DateTimeImmutableMicrosecondsType
 ```
 
 ## How To
