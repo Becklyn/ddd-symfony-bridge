@@ -1,6 +1,6 @@
 <?php
 
-namespace C201\Ddd\DependencyInjection;
+namespace Becklyn\Ddd\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -9,10 +9,10 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * @author Marko Vujnovic <mv@201created.de>
+ * @author Marko Vujnovic <mv@becklyn.com>
  * @since  2020-04-22
  */
-class C201DddExtension extends Extension implements PrependExtensionInterface
+class BecklynDddExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -25,7 +25,7 @@ class C201DddExtension extends Extension implements PrependExtensionInterface
         );
         $loader->load('services.yml');
 
-        $definition = $container->getDefinition('c201_ddd.events.event_store');
+        $definition = $container->getDefinition('becklyn_ddd.events.event_store');
         $definition->replaceArgument(4, $config['use_event_store']);
     }
 
@@ -33,7 +33,7 @@ class C201DddExtension extends Extension implements PrependExtensionInterface
     {
         $container->prependExtensionConfig('doctrine_migrations', [
             'migrations_paths' => [
-                'C201\Ddd\Events\Infrastructure\DoctrineMigrations' => __DIR__. '/../../../ddd-doctrine-bridge/src/Events/Infrastructure/DoctrineMigrations',
+                'Becklyn\Ddd\Events\Infrastructure\DoctrineMigrations' => __DIR__. '/../../../ddd-doctrine-bridge/src/Events/Infrastructure/DoctrineMigrations',
             ]
         ]);
     }

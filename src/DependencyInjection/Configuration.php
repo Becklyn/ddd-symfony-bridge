@@ -1,19 +1,19 @@
 <?php
 
-namespace C201\Ddd\DependencyInjection;
+namespace Becklyn\Ddd\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * @author Marko Vujnovic <mv@201created.de>
+ * @author Marko Vujnovic <mv@becklyn.com>
  * @since  2020-04-23
  */
 class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder('c201_ddd');
+        $treeBuilder = new TreeBuilder('becklyn_ddd');
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode

@@ -1,27 +1,26 @@
 {
-    "name": "201created/ddd-symfony-bridge",
-    "description": "Symfony bridge for use with 201created/ddd-core and 201created/ddd-doctrine-bridge",
+    "name": "becklyn/ddd-symfony-bridge",
+    "description": "Symfony bridge for use with becklyn/ddd-core and becklyn/ddd-doctrine-bridge",
     "type": "symfony-bundle",
     "license": "MIT",
-    "version": "1.0.0",
     "authors": [
         {
             "name": "Christoph Hautzinger",
-            "email": "ch@201created.de"
+            "email": "ch@becklyn.com"
         },
         {
             "name": "Marko Vujnovic",
-            "email": "ms@201created.de"
+            "email": "mv@becklyn.com"
         }
     ],
     "require": {
         "php": ">=7.4",
-        "201created/ddd-core": "^1.0",
-        "201created/ddd-doctrine-bridge": "^1.0",
+        "becklyn/ddd-core": "^1.0",
+        "becklyn/ddd-doctrine-bridge": "^1.0",
         "doctrine/doctrine-bundle": "^1.10||^2.0",
         "sensio/framework-extra-bundle": "^5.0",
-        "simple-bus/message-bus": "^3.0",
-        "simple-bus/symfony-bridge": "^5.3",
+        "simple-bus/message-bus": "^6.0",
+        "simple-bus/symfony-bridge": "^6.0",
         "symfony/config": "^4.3||^5.0",
         "symfony/dependency-injection": "^4.3||^5.0",
         "symfony/http-foundation": "^4.3||^5.0",
@@ -33,12 +32,12 @@
     },
     "autoload": {
         "psr-4": {
-            "C201\\Ddd\\": "src/"
+            "Becklyn\\Ddd\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "C201\\Ddd\\Tests\\": "tests/"
+            "Becklyn\\Ddd\\Tests\\": "tests/"
         }
     }
 }

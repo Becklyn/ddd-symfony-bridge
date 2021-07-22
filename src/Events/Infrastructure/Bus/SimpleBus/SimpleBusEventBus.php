@@ -1,13 +1,13 @@
 <?php
 
-namespace C201\Ddd\Events\Infrastructure\Bus\SimpleBus;
+namespace Becklyn\Ddd\Events\Infrastructure\Bus\SimpleBus;
 
-use C201\Ddd\Events\Application\EventBus as EventBusInterface;
-use C201\Ddd\Events\Domain\DomainEvent;
+use Becklyn\Ddd\Events\Application\EventBus as EventBusInterface;
+use Becklyn\Ddd\Events\Domain\DomainEvent;
 use SimpleBus\SymfonyBridge\Bus\EventBus;
 
 /**
- * @author Marko Vujnovic <mv@201created.de>
+ * @author Marko Vujnovic <mv@becklyn.com>
  * @since  2019-06-05
  */
 class SimpleBusEventBus implements EventBusInterface

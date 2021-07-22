@@ -1,13 +1,13 @@
-201created/ddd-symfony-bridge integrates components provided by 201created/ddd-core and 201created/ddd-doctrine-bridge with a Symfony application. It uses SimpleBus to implement the event and command buses.
+becklyn/ddd-symfony-bridge integrates components provided by becklyn/ddd-core and becklyn/ddd-doctrine-bridge with a Symfony application. It uses SimpleBus to implement the event and command buses.
  
 ## Installation
 
-- Run `composer require 201created/ddd-symfony-bridge`.
+- Run `composer require becklyn/ddd-symfony-bridge`.
 - Add the following to `bundles.php`:
 ```
 SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle::class => ['all' => true],
 SimpleBus\SymfonyBridge\SimpleBusEventBusBundle::class => ['all' => true],
-C201\Ddd\C201DddBundle::class => ['all' => true],
+Becklyn\Ddd\BecklynDddBundle::class => ['all' => true],
 ```
 
 ### Enabling Event Bus & Subscribers and Command Bus & Handlers
@@ -30,7 +30,7 @@ command_handlers:
 - The above registers all classes ending in 'Subscriber' as event subscribers, and all classes ending in 'Handler' as command handlers. Make sure you have no classes in your code with those endings that are not intended to be event subscribers or command handlers.
 
 ### Enabling the Event Store
-- Run `php bin/console doctrine:migrations:migrate`. This executes the Doctrine migration provided by 201created/ddd-doctrine-bridge to create database tables for the event store.
+- Run `php bin/console doctrine:migrations:migrate`. This executes the Doctrine migration provided by becklyn/ddd-doctrine-bridge to create database tables for the event store.
 - If you do not wish to use the event store, see the `use_event_store` configuration option below.
 - Add the following to `services.yaml` and `doctrine.yaml` if you wish for Doctrine ORM 2 to persist microseconds as part of domain event timestamps in the event store (this should no longer be necessary with Doctrine ORM 3):
 ```
@@ -49,7 +49,7 @@ datetime_normalizer:
 doctrine:
     dbal:
         types:
-            datetime_immutable: C201\Ddd\DateTime\Infrastructure\Doctrine\DateTimeImmutableMicrosecondsType
+            datetime_immutable: Becklyn\Ddd\DateTime\Infrastructure\Doctrine\DateTimeImmutableMicrosecondsType
 ```
 
 ## How To
@@ -63,11 +63,11 @@ Each subscriber or handler may handle one or more events or commands. An individ
 To have a subscriber or handler handle an event or command, simply implement a public method with a single argument typed to the event or command class. The name of the method and the argument can be anything, but the method must return void. It is traditional for the method to be named `handle` and the argument `$event` or `$command`, or for methods to be named `handleMyEventClass` in case of subscribers or handlers handling multiple different events or commands.
 
 ## Configuration
-To change the values of configuration options from their defaults, create a `c201_ddd.yaml` file in the `config/packages` folder within your Symfony application with the following contents:
+To change the values of configuration options from their defaults, create a `becklyn_ddd.yaml` file in the `config/packages` folder within your Symfony application with the following contents:
 ```
-c201_ddd:
-option_name: value
-another_option_name: value
+becklyn_ddd:
+    option_name: value
+    another_option_name: value
 ```
 
 ### Available Options

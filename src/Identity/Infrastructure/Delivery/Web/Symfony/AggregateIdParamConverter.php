@@ -1,14 +1,14 @@
 <?php
 
-namespace C201\Ddd\Identity\Infrastructure\Delivery\Web\Symfony;
+namespace Becklyn\Ddd\Identity\Infrastructure\Delivery\Web\Symfony;
 
-use C201\Ddd\Identity\Domain\AggregateId;
+use Becklyn\Ddd\Identity\Domain\AggregateId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @author Christoph Hautzinger <ch@201created.de>
+ * @author Christoph Hautzinger <ch@becklyn.com>
  * @since  2019-11-15
  */
 class AggregateIdParamConverter implements ParamConverterInterface

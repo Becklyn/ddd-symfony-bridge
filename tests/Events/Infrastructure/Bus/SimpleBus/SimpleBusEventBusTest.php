@@ -1,9 +1,9 @@
 <?php
 
-namespace C201\Ddd\Tests\Events\Infrastructure\Bus\SimpleBus;
+namespace Becklyn\Ddd\Tests\Events\Infrastructure\Bus\SimpleBus;
 
-use C201\Ddd\Events\Domain\DomainEvent;
-use C201\Ddd\Events\Infrastructure\Bus\SimpleBus\SimpleBusEventBus;
+use Becklyn\Ddd\Events\Domain\DomainEvent;
+use Becklyn\Ddd\Events\Infrastructure\Bus\SimpleBus\SimpleBusEventBus;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;

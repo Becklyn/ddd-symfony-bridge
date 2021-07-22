@@ -1,12 +1,12 @@
 <?php
 
-namespace C201\Ddd\Commands\Infrastructure\SimpleBus;
+namespace Becklyn\Ddd\Commands\Infrastructure\SimpleBus;
 
-use C201\Ddd\Commands\Application\CommandBus as CommandBusInterface;
+use Becklyn\Ddd\Commands\Application\CommandBus as CommandBusInterface;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
 
 /**
- * @author Marko Vujnovic <mv@201created.de>
+ * @author Marko Vujnovic <mv@becklyn.com>
  * @since  2019-06-05
  */
 class SimpleBusCommandBus implements CommandBusInterface

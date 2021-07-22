@@ -1,8 +1,8 @@
 <?php
 
-namespace C201\Ddd\Tests\Commands\Infrastructure;
+namespace Becklyn\Ddd\Tests\Commands\Infrastructure;
 
-use C201\Ddd\Commands\Infrastructure\SimpleBus\SimpleBusCommandBus;
+use Becklyn\Ddd\Commands\Infrastructure\SimpleBus\SimpleBusCommandBus;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
