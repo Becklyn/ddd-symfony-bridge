@@ -1,3 +1,8 @@
+2.1.0
+=====
+
+*   (feature) Support for latest version of becklyn/ddd-doctrine-bridge which provides \DateTimeImmutable microsecond support for Oracle
+
 2.0.2
 =====
 

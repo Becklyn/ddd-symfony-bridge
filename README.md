@@ -41,7 +41,7 @@ command_handlers:
         public: false
         tags: [ serializer.normalizer ]
 ```
-- Add the following to `services.yaml` and `doctrine.yaml` if you wish for Doctrine ORM 2 to persist microseconds as part of domain event timestamps in the event store (this should no longer be necessary with Doctrine ORM 3):
+- Add the following to `services.yaml` and `doctrine.yaml` if you wish for Doctrine ORM to persist microseconds as part of domain event timestamps in the event store (should not be required for MySQL and Doctrine 3):
 ```
 # services.yaml
     # required for microsecond serialization in event store for raisedTs
@@ -52,6 +52,12 @@ command_handlers:
         arguments:
             -
                 datetime_format: 'Y-m-d H:i:s.u'
+    
+    # only if using Oracle
+    oracle_connector:
+        class: Becklyn\Ddd\DateTime\Infrastructure\Doctrine\MicrosecondsOracleSessionInit
+        tags:
+            - { name: doctrine.event_listener, event: postConnect }
 
 # doctrine.yaml
     # required for writing event raisedTs microseconds into the DB
