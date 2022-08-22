@@ -1,3 +1,8 @@
+3.0.0
+=======
+
+* (bc) Support for latest version of becklyn/ddd-core and becklyn/ddd-doctrine-bridge which provide event correlation and causation IDs.
+
 2.1.0
 =====
 

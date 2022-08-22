@@ -2,6 +2,7 @@
 
 namespace Becklyn\Ddd\Tests\Commands\Infrastructure;
 
+use Becklyn\Ddd\Commands\Domain\Command;
 use Becklyn\Ddd\Commands\Infrastructure\SimpleBus\SimpleBusCommandBus;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -29,12 +30,12 @@ class SimpleBusCommandBusTest extends TestCase
         $this->thenTheCommandShouldBeHandledByTheCommandBusFromTheSimpleBusLibrary($command);
     }
 
-    private function givenACommand()
+    private function givenACommand(): Command
     {
-        return new \stdClass();
+        return $this->prophesize(Command::class)->reveal();
     }
 
-    private function whenACommandIsDispatchedThroughSimpleBusCommandBus(\stdClass $command): void
+    private function whenACommandIsDispatchedThroughSimpleBusCommandBus(Command $command): void
     {
         $this->fixture->dispatch($command);
     }
