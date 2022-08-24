@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Becklyn\Ddd\Tests\Commands\Infrastructure;
 
@@ -17,30 +17,30 @@ class SimpleBusCommandBusTest extends TestCase
 
     private SimpleBusCommandBus $fixture;
 
-    protected function setUp(): void
+    protected function setUp() : void
     {
         $this->commandBus = $this->prophesize(CommandBus::class);
         $this->fixture = new SimpleBusCommandBus($this->commandBus->reveal());
     }
 
-    public function testDispatchCallsHandleOnBase(): void
+    public function testDispatchCallsHandleOnBase() : void
     {
         $command = $this->givenACommand();
         $this->whenACommandIsDispatchedThroughSimpleBusCommandBus($command);
         $this->thenTheCommandShouldBeHandledByTheCommandBusFromTheSimpleBusLibrary($command);
     }
 
-    private function givenACommand(): Command
+    private function givenACommand() : Command
     {
         return $this->prophesize(Command::class)->reveal();
     }
 
-    private function whenACommandIsDispatchedThroughSimpleBusCommandBus(Command $command): void
+    private function whenACommandIsDispatchedThroughSimpleBusCommandBus(Command $command) : void
     {
         $this->fixture->dispatch($command);
     }
 
-    private function thenTheCommandShouldBeHandledByTheCommandBusFromTheSimpleBusLibrary($command): void
+    private function thenTheCommandShouldBeHandledByTheCommandBusFromTheSimpleBusLibrary($command) : void
     {
         $this->commandBus->handle($command)->shouldBeCalledTimes(1);
     }

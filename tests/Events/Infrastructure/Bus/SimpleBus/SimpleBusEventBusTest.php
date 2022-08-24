@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Becklyn\Ddd\Tests\Events\Infrastructure\Bus\SimpleBus;
 
@@ -17,30 +17,30 @@ class SimpleBusEventBusTest extends TestCase
 
     private SimpleBusEventBus $fixture;
 
-    protected function setUp(): void
+    protected function setUp() : void
     {
         $this->eventBus = $this->prophesize(EventBus::class);
         $this->fixture = new SimpleBusEventBus($this->eventBus->reveal());
     }
 
-    public function testDispatchPassesEventToSimpleBus(): void
+    public function testDispatchPassesEventToSimpleBus() : void
     {
         $event = $this->givenADomainEvent();
         $this->whenADomainEventIsDispatchedThroughSimpleBusEventBus($event);
         $this->thenTheDomainEventShouldBeHandledByTheEventBusFromTheSimpleBusLibrary($event);
     }
 
-    private function givenADomainEvent(): DomainEvent
+    private function givenADomainEvent() : DomainEvent
     {
         return $this->prophesize(DomainEvent::class)->reveal();
     }
 
-    private function whenADomainEventIsDispatchedThroughSimpleBusEventBus(DomainEvent $event): void
+    private function whenADomainEventIsDispatchedThroughSimpleBusEventBus(DomainEvent $event) : void
     {
         $this->fixture->dispatch($event);
     }
 
-    private function thenTheDomainEventShouldBeHandledByTheEventBusFromTheSimpleBusLibrary(DomainEvent $event): void
+    private function thenTheDomainEventShouldBeHandledByTheEventBusFromTheSimpleBusLibrary(DomainEvent $event) : void
     {
         $this->eventBus->handle($event)->shouldBeCalledTimes(1);
     }

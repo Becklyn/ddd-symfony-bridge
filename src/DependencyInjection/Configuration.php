@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Becklyn\Ddd\DependencyInjection;
 
@@ -7,6 +7,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * @author Marko Vujnovic <mv@becklyn.com>
+ *
  * @since  2020-04-23
  */
 class Configuration implements ConfigurationInterface
@@ -21,8 +22,7 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('use_event_store')
                     ->defaultTrue()
                 ->end()
-            ->end()
-        ;
+            ->end();
 
         return $treeBuilder;
     }

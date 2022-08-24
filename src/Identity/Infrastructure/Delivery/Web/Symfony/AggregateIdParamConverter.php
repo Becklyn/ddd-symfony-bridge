@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Becklyn\Ddd\Identity\Infrastructure\Delivery\Web\Symfony;
 
@@ -9,11 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @author Christoph Hautzinger <ch@becklyn.com>
+ *
  * @since  2019-11-15
  */
 class AggregateIdParamConverter implements ParamConverterInterface
 {
-    public function apply(Request $request, ParamConverter $configuration): bool
+    public function apply(Request $request, ParamConverter $configuration) : bool
     {
         $aggregateId = $request->attributes->get($configuration->getName());
         $class = $configuration->getClass();
@@ -23,12 +24,12 @@ class AggregateIdParamConverter implements ParamConverterInterface
         return true;
     }
 
-    public function supports(ParamConverter $configuration): bool
+    public function supports(ParamConverter $configuration) : bool
     {
-        if (!class_exists($configuration->getClass())) {
+        if (!\class_exists($configuration->getClass())) {
             return false;
         }
 
-        return in_array(AggregateId::class, class_implements($configuration->getClass()));
+        return \in_array(AggregateId::class, \class_implements($configuration->getClass()), true);
     }
 }

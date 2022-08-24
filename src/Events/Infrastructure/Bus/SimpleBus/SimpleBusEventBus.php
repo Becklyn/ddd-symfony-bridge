@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Becklyn\Ddd\Events\Infrastructure\Bus\SimpleBus;
 
@@ -8,6 +8,7 @@ use SimpleBus\SymfonyBridge\Bus\EventBus;
 
 /**
  * @author Marko Vujnovic <mv@becklyn.com>
+ *
  * @since  2019-06-05
  */
 class SimpleBusEventBus implements EventBusInterface
@@ -17,7 +18,7 @@ class SimpleBusEventBus implements EventBusInterface
     ) {
     }
 
-    public function dispatch(DomainEvent $event): void
+    public function dispatch(DomainEvent $event) : void
     {
         $this->eventBus->handle($event);
     }

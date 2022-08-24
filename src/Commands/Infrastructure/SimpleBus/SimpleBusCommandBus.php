@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Becklyn\Ddd\Commands\Infrastructure\SimpleBus;
 
@@ -8,6 +8,7 @@ use SimpleBus\SymfonyBridge\Bus\CommandBus;
 
 /**
  * @author Marko Vujnovic <mv@becklyn.com>
+ *
  * @since  2019-06-05
  */
 class SimpleBusCommandBus implements CommandBusInterface
@@ -17,7 +18,7 @@ class SimpleBusCommandBus implements CommandBusInterface
     ) {
     }
 
-    public function dispatch(Command $command): void
+    public function dispatch(Command $command) : void
     {
         $this->commandBus->handle($command);
     }
