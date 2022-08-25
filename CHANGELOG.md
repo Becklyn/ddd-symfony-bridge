@@ -1,3 +1,8 @@
+4.0.0
+=======
+
+* (bc) Switched to 4.0 series of becklyn/ddd-core with separate CommandBus methods with and without correlation
+
 3.1.0
 =======
 

@@ -19,12 +19,14 @@ class SimpleBusCommandBus implements CommandBusInterface
     ) {
     }
 
-    public function dispatch(Command $command, ?Message $correlateWith = null) : void
+    public function dispatch(Command $command) : void
     {
-        if ($correlateWith) {
-            $command->correlateWith($correlateWith);
-        }
+        $this->commandBus->handle($command);
+    }
 
+    public function dispatchAndCorrelate(Command $command, Message $correlateWith) : void
+    {
+        $command->correlateWith($correlateWith);
         $this->commandBus->handle($command);
     }
 }

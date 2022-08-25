@@ -46,14 +46,14 @@ class SimpleBusCommandBusTest extends TestCase
         $this->commandBus->handle($command)->shouldBeCalledTimes(1);
     }
 
-    public function testCommandIsCorrelatedBeforeBeingHandledByBaseIfCorrelationMessageIsPassed() : void
+    public function testDispatchAndCorrelateCorrelatesCommandBeforePassingItToSimpleBus() : void
     {
         $command = $this->givenACommand();
         $correlationMessage = $this->givenACorrelationMessage();
 
         $this->thenCommandShouldBeCorrelatedBeforeBeingHandledBySimpleBus($command, $correlationMessage);
 
-        $this->whenACommandIsDispatchedThroughSimpleBusCommandBus($command->reveal(), $correlationMessage);
+        $this->whenACommandIsDispatchedAndCorrelatedThroughSimpleBusCommandBus($command->reveal(), $correlationMessage);
     }
 
     private function givenACorrelationMessage() : Message
@@ -69,5 +69,10 @@ class SimpleBusCommandBusTest extends TestCase
         $command->correlateWith($correlationMessage)->will(function () use ($command, $simpleBus) : void {
             $simpleBus->handle($command->reveal())->shouldBeCalledTimes(1);
         });
+    }
+
+    private function whenACommandIsDispatchedAndCorrelatedThroughSimpleBusCommandBus(Command $command, Message $correlationMessage) : void
+    {
+        $this->fixture->dispatchAndCorrelate($command, $correlationMessage);
     }
 }

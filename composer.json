@@ -15,8 +15,8 @@
     ],
     "require": {
         "php": ">=8.0",
-        "becklyn/ddd-core": "^3.1",
-        "becklyn/ddd-doctrine-bridge": "^3.0",
+        "becklyn/ddd-core": "^4.0",
+        "becklyn/ddd-doctrine-bridge": "^3.0.1",
         "doctrine/doctrine-bundle": "^1.10||^2.0",
         "sensio/framework-extra-bundle": "^5.0||^6.0",
         "simple-bus/message-bus": "^6.0",
