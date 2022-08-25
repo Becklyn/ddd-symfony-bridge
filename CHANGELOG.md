@@ -1,3 +1,8 @@
+3.0.1
+=======
+
+* (improvement) Capped supported versions of becklyn/ddd-core to < 3.1.0 
+
 3.0.0
 =======
 
