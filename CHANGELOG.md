@@ -1,3 +1,8 @@
+3.1.0
+=======
+
+* (feature) Support for 3.2 series of becklyn/ddd-core which allows CommandBus to correlate commands
+
 3.0.1
 =======
 

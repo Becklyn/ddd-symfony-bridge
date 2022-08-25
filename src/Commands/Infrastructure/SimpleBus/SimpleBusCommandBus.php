@@ -4,6 +4,7 @@ namespace Becklyn\Ddd\Commands\Infrastructure\SimpleBus;
 
 use Becklyn\Ddd\Commands\Application\CommandBus as CommandBusInterface;
 use Becklyn\Ddd\Commands\Domain\Command;
+use Becklyn\Ddd\Messages\Domain\Message;
 use SimpleBus\SymfonyBridge\Bus\CommandBus;
 
 /**
@@ -18,8 +19,12 @@ class SimpleBusCommandBus implements CommandBusInterface
     ) {
     }
 
-    public function dispatch(Command $command) : void
+    public function dispatch(Command $command, ?Message $correlateWith = null) : void
     {
+        if ($correlateWith) {
+            $command->correlateWith($correlateWith);
+        }
+
         $this->commandBus->handle($command);
     }
 }
