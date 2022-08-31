@@ -26,7 +26,7 @@ class AggregateIdParamConverter implements ParamConverterInterface
 
     public function supports(ParamConverter $configuration) : bool
     {
-        if (\empty($configuration->getClass()) || !\class_exists($configuration->getClass())) {
+        if (empty($configuration->getClass()) || !\class_exists($configuration->getClass())) {
             return false;
         }
 

@@ -1,3 +1,8 @@
+4.0.2
+=======
+
+* (bug) Fixed calling empty from global namespace.
+
 4.0.1
 =======
 
