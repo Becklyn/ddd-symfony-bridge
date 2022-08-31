@@ -1,3 +1,8 @@
+4.0.1
+=======
+
+* (bug) Fixed TypeError occurring in Symfony controllers caused by `AggregateIdParamConverter`
+
 4.0.0
 =======
 
