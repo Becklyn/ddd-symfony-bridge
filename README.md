@@ -4,7 +4,7 @@ becklyn/ddd-symfony-bridge integrates components provided by becklyn/ddd-core an
 
 - Run `composer require becklyn/ddd-symfony-bridge`.
 - Add the following to `bundles.php`:
-```
+```php
 SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle::class => ['all' => true],
 SimpleBus\SymfonyBridge\SimpleBusEventBusBundle::class => ['all' => true],
 Becklyn\Ddd\BecklynDddBundle::class => ['all' => true],
@@ -12,7 +12,7 @@ Becklyn\Ddd\BecklynDddBundle::class => ['all' => true],
 
 ### Enabling Event Bus & Subscribers and Command Bus & Handlers
 - Add the following to `services.yaml`:
-```
+```yaml
 event_subscribers:
     namespace: App\
     resource: '../src/**/*Subscriber.php'
@@ -32,8 +32,17 @@ command_handlers:
 ### Enabling the Event Store
 - Run `php bin/console doctrine:migrations:migrate`. This executes the Doctrine migration provided by becklyn/ddd-doctrine-bridge to create database tables for the event store.
 - If you do not wish to use the event store, see the `use_event_store` configuration option below.
-- Add the following to `services.yaml` to enable persisting event data in the event store
+- Add the following to `services.yaml` if you work with enums and need them to be serialized correctly
+```yaml
+# services.yaml
+    # required for serializing event data with enums into the event store
+    symfony_enum_normalizer:
+        class: Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer
+        public: false
+        tags: [ serializer.normalizer ]
 ```
+- Add the following to `services.yaml` to enable persisting event data in the event store
+```yaml
 # services.yaml
     # required for serializing event data into the event store
     symfony_property_normalizer:
@@ -42,7 +51,7 @@ command_handlers:
         tags: [ serializer.normalizer ]
 ```
 - Add the following to `services.yaml` and `doctrine.yaml` if you wish for Doctrine ORM to persist microseconds as part of domain event timestamps in the event store (should not be required for MySQL and Doctrine 3):
-```
+```yaml
 # services.yaml
     # required for microsecond serialization in event store for raisedTs
     datetime_normalizer:
@@ -79,7 +88,7 @@ To have a subscriber or handler handle an event or command, simply implement a p
 
 ## Configuration
 To change the values of configuration options from their defaults, create a `becklyn_ddd.yaml` file in the `config/packages` folder within your Symfony application with the following contents:
-```
+```yaml
 becklyn_ddd:
     option_name: value
     another_option_name: value
@@ -101,7 +110,7 @@ Note that if you leave this option set to true and do not execute the Doctrine m
 SimpleBus always finishes the handling of the current command before new commands dispatched during this handling are processed. In other words, it puts all commands dispatched during the processing of another command into a queue, and flushes the queue only when the processing of the current command is complete.
 
 Having a command dispatch another command and that new command be processed before handling of the originating command resumes can be a code smell in a lot of situations. But in case you require such functionality it is possible to configure SimpleBus to do so. Add the following to the `command_bus.yaml` in `config/packages`:
-```
+```yaml
 command_bus:
     middlewares:
         finishes_command_before_handling_next: false
