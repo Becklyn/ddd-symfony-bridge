@@ -18,7 +18,6 @@
         "becklyn/ddd-core": "^4.0",
         "becklyn/ddd-doctrine-bridge": "^3.0.1",
         "doctrine/doctrine-bundle": "^1.10||^2.0",
-        "sensio/framework-extra-bundle": "^5.0||^6.0",
         "simple-bus/message-bus": "^6.0",
         "simple-bus/symfony-bridge": "^6.0",
         "symfony/config": "^5.4 || ^6.0",
@@ -28,8 +27,10 @@
     },
     "require-dev": {
         "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^9.1"
+        "phpunit/phpunit": "^9.1",
+        "roave/security-advisories": "dev-latest"
     },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Becklyn\\Ddd\\": "src/"

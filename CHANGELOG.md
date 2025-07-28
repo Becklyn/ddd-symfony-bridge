@@ -1,3 +1,8 @@
+5.0.0
+=======
+
+* (BC) Remove abandoned package sensio/framework-extra-bundle, use symfony instead.
+
 4.0.2
 =======
 
