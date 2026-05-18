@@ -74,10 +74,6 @@ services:
     Becklyn\Ddd\Events\Application\EventManager:
         alias: becklyn_ddd.events.event_manager
 
-    becklyn_ddd.identity.aggregate_id_param_converter:
-        class: Becklyn\Ddd\Identity\Infrastructure\Delivery\Web\Symfony\AggregateIdParamConverter
-        tags:
-            - { name: 'request.param_converter', converter: 'becklyn_ddd.identity.aggregate_id' }
 
     becklyn_ddd.transactions.transaction_manager:
         class: Becklyn\Ddd\Transactions\Infrastructure\Application\Doctrine\DoctrineTransactionManager

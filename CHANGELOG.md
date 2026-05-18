@@ -1,3 +1,11 @@
+6.0.0
+=======
+
+* (BC) Bumped Symfony component constraints to `^6.4 || ^7.0`.
+* (BC) Raised minimum PHP version to 8.1 (required by Symfony 6.4).
+* (BC) Removed the `becklyn_ddd.identity.aggregate_id_param_converter` service registration (Sensio `request.param_converter` tag). Applications relying on auto-resolving `AggregateId` controller arguments must register a custom `Symfony\Component\HttpKernel\Controller\ValueResolverInterface`.
+* (BC) Any remaining `@ParamConverter` usages in consumer code must be migrated to `#[MapEntity]` (Symfony 6.2+) and any `@Security` usages to `#[IsGranted]` or a custom value resolver.
+
 5.0.0
 =======
 
