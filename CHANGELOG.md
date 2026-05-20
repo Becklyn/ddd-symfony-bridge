@@ -1,3 +1,10 @@
+6.1.0
+=======
+
+* Updated Symfony component constraints to `^6.4 || ^7.4` to target Symfony 7.4 LTS.
+* Updated `doctrine/doctrine-bundle` constraint to `^2.11 || ^3.0`, dropping support for the EOL 1.x branch.
+* Updated `becklyn/ddd-doctrine-bridge` to `^3.0` and `becklyn/ddd-core` to `^4.0`, enabling `doctrine/orm ^3.x` and `doctrine/dbal ^4.x` support and removing the abandoned `doctrine/cache` transitive dependency.
+
 6.0.0
 =======
 
