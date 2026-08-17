@@ -19,6 +19,10 @@ class SimpleBusEventBusTest extends TestCase
 
     protected function setUp() : void
     {
+        if (!\interface_exists('SimpleBus\\SymfonyBridge\\Bus\\EventBus') && !\class_exists('SimpleBus\\SymfonyBridge\\Bus\\EventBus')) {
+            self::markTestSkipped('simple-bus/symfony-bridge is no longer a dependency of this package; it cannot be installed alongside Symfony 7.');
+        }
+
         $this->eventBus = $this->prophesize(EventBus::class);
         $this->fixture = new SimpleBusEventBus($this->eventBus->reveal());
     }

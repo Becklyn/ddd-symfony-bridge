@@ -20,6 +20,10 @@ class SimpleBusCommandBusTest extends TestCase
 
     protected function setUp() : void
     {
+        if (!\interface_exists('SimpleBus\\SymfonyBridge\\Bus\\CommandBus') && !\class_exists('SimpleBus\\SymfonyBridge\\Bus\\CommandBus')) {
+            self::markTestSkipped('simple-bus/symfony-bridge is no longer a dependency of this package; it cannot be installed alongside Symfony 7.');
+        }
+
         $this->commandBus = $this->prophesize(CommandBus::class);
         $this->fixture = new SimpleBusCommandBus($this->commandBus->reveal());
     }
