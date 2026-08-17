@@ -44,12 +44,12 @@ services:
         alias: becklyn_ddd.events.event_store
 
     becklyn_ddd.events.event_bus:
-        class: Becklyn\Ddd\Events\Infrastructure\Bus\SimpleBus\SimpleBusEventBus
+        class: Becklyn\Ddd\Events\Infrastructure\Bus\Messenger\MessengerEventBus
         public: false
         arguments:
-            - '@SimpleBus\SymfonyBridge\Bus\EventBus'
+            - '@becklyn_ddd.messenger.event_bus'
 
-    Becklyn\Ddd\Events\Infrastructure\Bus\SimpleBus\SimpleBusEventBus:
+    Becklyn\Ddd\Events\Infrastructure\Bus\Messenger\MessengerEventBus:
         alias: becklyn_ddd.events.event_bus
 
     Becklyn\Ddd\Events\Application\EventBus:
@@ -90,12 +90,12 @@ services:
         alias: becklyn_ddd.transactions.transaction_manager
 
     becklyn_ddd.commands.command_bus:
-        class: Becklyn\Ddd\Commands\Infrastructure\SimpleBus\SimpleBusCommandBus
+        class: Becklyn\Ddd\Commands\Infrastructure\Messenger\MessengerCommandBus
         public: false
         arguments:
-            - '@SimpleBus\SymfonyBridge\Bus\CommandBus'
+            - '@becklyn_ddd.messenger.command_bus'
 
-    Becklyn\Ddd\Commands\Infrastructure\SimpleBus\SimpleBusCommandBus:
+    Becklyn\Ddd\Commands\Infrastructure\Messenger\MessengerCommandBus:
         alias: becklyn_ddd.commands.command_bus
 
     Becklyn\Ddd\Commands\Application\CommandBus:

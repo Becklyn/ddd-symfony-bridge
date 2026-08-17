@@ -1,3 +1,13 @@
+6.2.0
+=======
+
+* (feature) Added `MessengerCommandBus` and `MessengerEventBus`, Symfony Messenger implementations of the `CommandBus` and `EventBus` application interfaces. These replace the SimpleBus implementations, which cannot be used beyond Symfony 6: `simple-bus/symfony-bridge` caps `symfony/config`, `symfony/http-kernel` and `symfony/yaml` at `^6.0` and has been unmaintained since 2021.
+* (feature) Added `RegisterHandlersPass`, which translates the existing `command_handler` and `event_subscriber` service tags into Symfony Messenger's `messenger.message_handler` tags. Consuming applications keep their tags and handler classes unchanged; no per-handler migration is required.
+* (feature) The bundle now prepends `framework.messenger` configuration declaring two synchronous buses, `becklyn_ddd.messenger.command_bus` and `becklyn_ddd.messenger.event_bus`, so applications need no messenger configuration of their own. The event bus sets `allow_no_handlers`, because a domain event without a subscriber is normal.
+* (improvement) `becklyn_ddd.commands.command_bus` and `becklyn_ddd.events.event_bus` now point at the Messenger implementations. The SimpleBus classes are kept for consumers still on Symfony 6 with `simple-bus/symfony-bridge` installed, but their tests skip when the library is absent.
+* (improvement) Added a return type to `Configuration::getConfigTreeBuilder()`. Without it the class is incompatible with `ConfigurationInterface` on Symfony 7, which declares `: TreeBuilder`.
+* (improvement) Added `symfony/messenger` to `require`.
+
 6.1.0
 =======
 
