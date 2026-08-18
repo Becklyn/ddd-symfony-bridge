@@ -11,4 +11,8 @@ class MultiMethodSubscriber
     public function handleOther(OtherExampleEvent $event) : void
     {
     }
+
+    public function handleExternalMessage(ExampleExternalMessage $message) : void
+    {
+    }
 }
