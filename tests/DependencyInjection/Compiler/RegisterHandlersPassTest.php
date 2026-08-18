@@ -6,6 +6,7 @@ use Becklyn\Ddd\DependencyInjection\Compiler\RegisterHandlersPass;
 use Becklyn\Ddd\Tests\DependencyInjection\Compiler\Fixtures\ExampleCommand;
 use Becklyn\Ddd\Tests\DependencyInjection\Compiler\Fixtures\ExampleCommandHandler;
 use Becklyn\Ddd\Tests\DependencyInjection\Compiler\Fixtures\ExampleEvent;
+use Becklyn\Ddd\Tests\DependencyInjection\Compiler\Fixtures\ExampleExternalMessage;
 use Becklyn\Ddd\Tests\DependencyInjection\Compiler\Fixtures\ExampleQuery;
 use Becklyn\Ddd\Tests\DependencyInjection\Compiler\Fixtures\MultiMethodSubscriber;
 use Becklyn\Ddd\Tests\DependencyInjection\Compiler\Fixtures\OtherExampleEvent;
@@ -84,8 +85,29 @@ class RegisterHandlersPassTest extends TestCase
 
         self::assertSame([
             ['bus' => 'becklyn_ddd.messenger.event_bus', 'handles' => ExampleEvent::class, 'method' => 'handle'],
+            ['bus' => 'becklyn_ddd.messenger.event_bus', 'handles' => ExampleExternalMessage::class, 'method' => 'handleExternalMessage'],
             ['bus' => 'becklyn_ddd.messenger.event_bus', 'handles' => OtherExampleEvent::class, 'method' => 'handleOther'],
         ], $tags);
+    }
+
+    public function testEventSubscriberForAMessageThatIsNotADomainEventIsStillRegistered() : void
+    {
+        // Regression test: a subscriber handling a plain Message (e.g. an
+        // inbound external event with no aggregate) must be wired to the
+        // event bus just like a DomainEvent subscriber is. Previously this
+        // silently registered nothing at all -- the message would be
+        // accepted and acknowledged with no handler ever running, and
+        // nothing anywhere would say why.
+        $this->container->setDefinition(MultiMethodSubscriber::class, (new Definition(MultiMethodSubscriber::class))
+            ->addTag('event_subscriber', ['method' => 'handleExternalMessage']));
+
+        (new RegisterHandlersPass())->process($this->container);
+
+        self::assertSame([[
+            'bus' => 'becklyn_ddd.messenger.event_bus',
+            'handles' => ExampleExternalMessage::class,
+            'method' => 'handleExternalMessage',
+        ]], $this->messengerTags(MultiMethodSubscriber::class));
     }
 
     public function testQueryClassesAreNotTreatedAsMessages() : void

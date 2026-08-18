@@ -3,7 +3,7 @@
 namespace Becklyn\Ddd\DependencyInjection\Compiler;
 
 use Becklyn\Ddd\Commands\Domain\Command;
-use Becklyn\Ddd\Events\Domain\DomainEvent;
+use Becklyn\Ddd\Messages\Domain\Message;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -19,12 +19,22 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
  * handler class in a consuming application.
  *
  * For each tagged service, every public method whose first parameter is typed
- * against a concrete Command (for `command_handler`) or DomainEvent (for
- * `event_subscriber`) becomes one handler registration. Methods typed against
- * the Command/DomainEvent interfaces themselves are skipped, as are methods with
- * no parameters or with an unrelated first parameter -- that keeps
- * infrastructure methods such as an `#[Required] setEventBus(EventBus $bus)`
- * setter, or a query handler's `execute(SomeQuery $query)`, out of the bus.
+ * against a concrete Command (for `command_handler`) or Message (for
+ * `event_subscriber`) becomes one handler registration. Message, not the
+ * narrower DomainEvent, is intentional: DomainEvent adds aggregate/timestamp
+ * metadata for events raised by an aggregate root, but plenty of legitimate
+ * event_subscriber targets -- e.g. an inbound external message that only
+ * implements Message -- are not DomainEvents. Restricting to DomainEvent here
+ * previously meant such subscribers were silently never wired to any bus: the
+ * message would be accepted and acknowledged (e.g. 200 OK from an HTTP
+ * consumer) without any handler ever running, and without a single error
+ * anywhere -- the event bus has `allow_no_handlers: true`, which is correct
+ * for genuine domain events with no subscriber, but was masking this case too.
+ * Methods typed against the Command/Message interfaces themselves are
+ * skipped, as are methods with no parameters or with an unrelated first
+ * parameter -- that keeps infrastructure methods such as an
+ * `#[Required] setEventBus(EventBus $bus)` setter, or a query handler's
+ * `execute(SomeQuery $query)`, out of the bus.
  *
  * Honours the `method` tag attribute when present; otherwise all public methods
  * are considered, which matches SimpleBus's `register_public_methods: true`.
@@ -44,7 +54,7 @@ class RegisterHandlersPass implements CompilerPassInterface
     public function process(ContainerBuilder $container) : void
     {
         $this->registerTag($container, self::COMMAND_TAG, Command::class, $this->commandBus);
-        $this->registerTag($container, self::EVENT_TAG, DomainEvent::class, $this->eventBus);
+        $this->registerTag($container, self::EVENT_TAG, Message::class, $this->eventBus);
     }
 
     /**
